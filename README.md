@@ -9,10 +9,7 @@
 
 **Add some features that PWA can't handle for desktop environnement :**
 
-legend :
-
-- [x] : done
-- [ ] : not done
+_[x] : done, [ ] : not done_
 
 - [x] fullscreen on launch
 - [ ] automatic launch
