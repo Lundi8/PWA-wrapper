@@ -5,7 +5,7 @@
 - Code : Jonathan ATTAR
 
 ## Description
-Born in the need to have some features that PWA can't handle.
+Add some features that PWA can't handle for desktop environnement
 - fullscreen on launch
 - automatic launch
 - exit app forbidden
@@ -13,7 +13,11 @@ Born in the need to have some features that PWA can't handle.
 
 ## Installation
 ```
-npm i
+npm i 
+```
+or
+```
+yarn 
 ```
 
 ## Scripts
@@ -21,8 +25,13 @@ npm i
 npm start
 npm run package
 npm run make
-npm run publish
-npm run lint
+
+```
+or
+```
+yarn start
+yarn package
+yarn make
 ```
 
 
