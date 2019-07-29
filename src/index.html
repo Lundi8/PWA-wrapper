@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Terminal</title>
   </head>
   <style>
     body {
@@ -34,6 +34,7 @@
       height: 30px;
       padding: 5px;
     }
+
   </style>
   <body>
     <h1>Terminal</h1>
@@ -45,71 +46,40 @@
       </div>
       <div>
         <label>File : </label>
-        <input id="fetchLocalFile" type="file" placeholder="drag and drop zip file" />
+        <input id="fetchLocalFile" type="file" />
       </div>
-
-      <div id="fetcherRes"></div>
+      <div id="fetchError"></div>
     </div>
 
     <script>
-      // const ipcRenderer = window.require('electron').ipcRenderer;
       const { ipcRenderer } = require('electron');
+      const fetchError = document.getElementById('fetchError');
+      const fetchUrl = document.getElementById('fetchUrl');
+      const fetchLocalFile = document.getElementById('fetchLocalFile');
 
-      const fetcherRes = document.getElementById('fetcherRes');
-
-      document.getElementById('fetchUrl').addEventListener('change', evt => {
-        fetcherRes.innerText = '...';
-        // window.location.href = evt.target.value;
+      // handle url https://
+      fetchUrl.addEventListener('change', evt => {
+        fetchError.innerText = '...';
         let res = ipcRenderer.sendSync('fetchUrl', evt.target.value);
-        fetcherRes.innerText = res;
-        // fetch(evt.target.value)
-        //   .then(res => res.body)
-        //   .then(res => {
-        //     console.log(res);
-        //     fetcherRes.innerText = 'PWA downloaded';
-        //     document.open();
-        //     document.write(res);
-        //     document.close();
-        //   })
-        //   .catch(err => {
-        //     fetcherRes.innerText = err;
-        //   });
+        fetchError.innerText = res;
       });
 
-      var fetchLocalFile = document.getElementById('fetchLocalFile');
+      // handle local file path
       fetchLocalFile.addEventListener('change', function(e) {
-        // e.preventDefault();
-        // var length = e.dataTransfer.items.length;
-        // for (var i = 0; i < length; i++) {
-        //   var entry = e.dataTransfer.items[i].webkitGetAsEntry();
-        //   var file = e.dataTransfer.files[i];
-        //   var zip = file.name.match(/\.zip/);
-        //   if (entry.isFile) {
-        //     if (zip) {
-        console.log('sldkfldfkslk');
+        fetchError.innerText = '...';
         let res = ipcRenderer.sendSync('fetchLocalFile', fetchLocalFile.files[0].path);
-
-        fetcherRes.innerText = res;
-
-        //     } else {
-        //     }
-        //   }
-        // }
+        fetchError.innerText = res;
       });
 
-      // document.getElementById('fetcherFF').addEventListener('change', evt => {
-      //   fetcherRes.innerText = '...';
-      //   // file:\\
-      //   // C:\Users\LUNDI8\Documents\Nodejs\Oslo\mockup-pwa_v2_bis\public\index.html
-      //   let newFile = ipcRenderer.sendSync('fetcherFF', evt.target.value);
-      //   console.log(newFile);
-      //   document.open();
-      //   document.write(newFile);
-      //   document.close();
-      //   // window.location.href = newFile;
-
-      //   // ipcRenderer.on('fetcherFF', res => {});
-      // });
+      // /// Methods to load url directly without reloading electron
+      // fetch(evt.target.value)
+      //   .then(res => res.body)
+      //   .then(res => {
+      //     document.open();
+      //     document.write(res);
+      //     document.close();
+      //   })
+      //   .catch(err => {});
     </script>
   </body>
 </html>
