@@ -1,6 +1,4 @@
-const path = require('path');
 const urlHandler = require('./url.handler');
-// const rootFilePath = path.join('file://', __dirname, 'index.html');
 
 const template = [
   {
@@ -17,7 +15,7 @@ const template = [
         label: 'Reload current PWA',
         click(item, focusedWindow) {
           let urls = urlHandler.entries();
-          urls = urls.fetch || urls.local || urls.default;
+          urls = urls.fetch || urls.default;
           focusedWindow.loadURL(urls);
         },
       },

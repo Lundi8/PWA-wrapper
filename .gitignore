@@ -91,5 +91,6 @@ typings/
 out/
 dist/
 build/
+src/url.store.json
 src/store/*
 !src/store/.gitkeep

@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
-
 const _filePath = path.join(__dirname, 'url.store.json');
+const model = { fetch: '', default: '' };
 
 const getData = () => {
   try {
@@ -23,16 +23,14 @@ const appendData = fileData => {
   }
 };
 
-module.exports.store = url => {
-  let fileData = getData();
-  if (url.includes('https://')) fileData.fetch = url;
-  else fileData.local = url;
-  return appendData(fileData);
+module.exports.init = () => {
+  if (!fs.existsSync(_filePath)) fs.writeFileSync(_filePath, JSON.stringify(model));
 };
 
-module.exports.storeDefault = url => {
+module.exports.store = url => {
   let fileData = getData();
-  fileData.default = url;
+  let key = Object.keys(url);
+  fileData[key] = url[key];
   return appendData(fileData);
 };
 

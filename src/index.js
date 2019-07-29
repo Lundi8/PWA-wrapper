@@ -1,32 +1,32 @@
 const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
-const template = require('./menu');
 const fs = require('fs');
-const urlHandler = require('./url.handler');
 var AdmZip = require('adm-zip');
+const template = require('./menu');
+const urlHandler = require('./url.handler');
 
-const urlDefault = path.join('file://', __dirname, 'index.html');
-urlHandler.storeDefault(urlDefault);
+urlHandler.init();
+urlHandler.store({ default: path.join('file://', __dirname, 'index.html') });
 
 const zipPath = path.join(__dirname, 'store', 'pwa.zip');
 const storePath = path.join(__dirname, 'store');
+const tDebug = txt => `[Temrinal] -> ${txt}`;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) {
-  // eslint-disable-line global-require
-  app.quit();
-}
+if (require('electron-squirrel-startup')) app.quit();
 
-const tDebug = txt => {
-  return `[Temrinal] -> ${txt}`;
-};
-
+/*
+ **********
+ * BrowserWindow
+ **********
+ */
 let mainWindow;
-
 const createWindow = () => {
+  // custom menu
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
-  // Create the browser window.
+
+  // custom window
   mainWindow = new BrowserWindow({
     x: 0,
     y: 0,
@@ -40,47 +40,46 @@ const createWindow = () => {
   });
   mainWindow.setFullScreen(true);
 
+  // load url
   let urls = urlHandler.entries();
-
   if (urls.fetch) mainWindow.loadURL(urls.fetch);
-  else if (urls.local) mainWindow.loadURL(urls.local);
   else mainWindow.loadURL(urls.default);
 
-  // mainWindow.loadURL(`file://${__dirname}/index.html`);
-  // mainWindow.loadURL('https://oslo-pwa-v2.firebaseapp.com/');
-  // console.log(`file://${__dirname}`)
-  // Open the DevTools.
+  // extra
   mainWindow.webContents.openDevTools();
 
+  // garbage
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 };
 
 app.on('ready', createWindow);
-app.on('error', err => console.log(err));
-
+app.on('error', err => console.error(tDebug(err)));
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+  if (process.platform !== 'darwin') app.quit();
 });
 
 app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow();
-  }
+  if (mainWindow === null) createWindow();
 });
 
+//
+//
+//
+//
+//
+// In this file you can include the rest of your app's specific main process
+// code. You can also put them in separate files and import them here.
+
 /*
- *
  **********
- * IPC MAIN
+ * ipcMain
  **********
  */
 
 ipcMain.on('fetchUrl', (event, pathTo) => {
-  urlHandler.store(pathTo);
+  urlHandler.store({ fetch: pathTo });
   event.returnValue = tDebug(`url stored`);
   mainWindow.loadURL(pathTo);
 });
@@ -121,11 +120,8 @@ const localFileHandler = event => {
   zip.extractAllTo(storePath, true);
 
   pathTo = path.join('file://', __dirname, 'store', 'index.html');
-  urlHandler.store(pathTo);
+  urlHandler.store({ fetch: pathTo });
   mainWindow.loadURL(pathTo);
   event.returnValue = tDebug(`loading...`);
   return;
 };
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
