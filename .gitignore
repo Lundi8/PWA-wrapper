@@ -92,4 +92,4 @@ out/
 dist/
 build/
 src/store/*
-!src/store/.gitkeep
+!src/store/ .gitkeep
