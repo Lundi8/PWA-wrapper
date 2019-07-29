@@ -1,35 +1,36 @@
 # PWA wrapper
 
 ## Authors
-- Company : Lundi8
-- Code : Jonathan ATTAR
+
+- Company : **Lundi8**
+- Code : **Jonathan ATTAR**
 
 ## Description
-Add some features that PWA can't handle for desktop environnement:
+
+**Add some features that PWA can't handle for desktop environnement:**
+
 - fullscreen on launch
 - automatic launch
 - exit app forbidden
 - wrapped for desktop
 
 ## Scripts
-- Installation : ``` npm i  ``` or  ``` yarn ```
-- Developpement : ``` npm start  ``` or  ``` yarn start  ```
-- Production : ``` npm run build ``` or ``` yarn build  ```
 
+- Installation : `npm i` or `yarn`
+- Developpement : `npm start` or `yarn start`
+- Production : `npm run build` or `yarn build`
 
 ## Project structure
-Project Root/  
-│  
-├── out/ * build folder (created on the fly)*   
-│  
+
+Project/  
+├── out/ _build folder (created on the fly)_  
 ├── src/  
-│   ├── store/ * pwa storage if local zip file loaded *  
-│   ├── index.html * default view loaded by electron *  
-│   ├── index.js * electron main process *  
-│   ├── menu.js * custom electron menu template *  
-│   ├── url.handler.js * handle urls from : default view, https:// and local file *  
-│   └── url.store.js * urls storage (created on the fly) *  
-│  
+│ ├── store/ _pwa storage if local zip file loaded_  
+│ ├── index.html _default view loaded by electron_  
+│ ├── index.js _electron main process_  
+│ ├── menu.js _custom electron menu template_  
+│ ├── url.handler.js _handle urls from : default view, https:// and local file_  
+│ └── url.store.js _urls storage (created on the fly)_  
 ├── ...  
 ├── ...  
-└── ...  
+└── ...
