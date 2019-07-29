@@ -25,12 +25,12 @@
 Project/  
 ├── out/ _build folder (created on the fly)_  
 ├── src/  
-│ ├── store/ _pwa storage if local zip file loaded_  
-│ ├── index.html _default view loaded by electron_  
-│ ├── index.js _electron main process_  
-│ ├── menu.js _custom electron menu template_  
-│ ├── url.handler.js _handle urls from : default view, https:// and local file_  
-│ └── url.store.js _urls storage (created on the fly)_  
+│ ├── store/ _(pwa storage if local zip file loaded)_  
+│ ├── index.html _(default view loaded by electron)_  
+│ ├── index.js _(electron main process)_  
+│ ├── menu.js _(custom electron menu template)_  
+│ ├── url.handler.js _(handle urls from : default view, https:// and file system)_  
+│ └── url.store.js _(urls storage (created on the fly))_  
 ├── ...  
 ├── ...  
 └── ...
