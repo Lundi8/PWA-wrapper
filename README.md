@@ -8,6 +8,7 @@
 ## Description
 
 **Add some features that PWA can't handle for desktop environnement:**
+
 _[x] : done, [ ] : not done_
 
 - [x] fullscreen on launch
@@ -24,14 +25,14 @@ _[x] : done, [ ] : not done_
 ## Project structure
 
 **Project/**  
- **├── out/** _(build folder (created on the fly))_  
+ **├── out/** _build folder (created on the fly)_  
  **├── src/**  
- **│ ├── store/** _(pwa storage if local zip file loaded)_  
- **│ ├── index.html** _(default view loaded by electron)_  
- **│ ├── index.js** _(electron main process)_  
- **│ ├── menu.js** _(custom electron menu template)_  
- **│ ├── url.handler.js** _(handle urls from : default view, https:// and file system)_  
- **│ └── url.store.js** _(urls storage (created on the fly))_  
+ **│ ├── store/** _pwa storage if local zip file loaded_  
+ **│ ├── index.html** _default view loaded by electron_  
+ **│ ├── index.js** _electron main process_  
+ **│ ├── menu.js** _custom electron menu template_  
+ **│ ├── url.handler.js** _handle urls from : default view, https:// and file system_  
+ **│ └── url.store.js** _urls storage (created on the fly)_  
  **├── ...**  
  **├── ...**  
  **└── ...**
