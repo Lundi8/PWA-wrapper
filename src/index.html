@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    h1 {
+      margin: 20px;
+      color: rgb(0, 0, 0);
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      height: 50vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: rgb(161, 161, 161);
+    }
+
+    .container > * {
+      margin: 20px 0;
+    }
+
+    input {
+      border-radius: 5px;
+      border: solid 1px gray;
+      width: 300px;
+      height: 30px;
+      padding: 5px;
+    }
+  </style>
+  <body>
+    <h1>Terminal</h1>
+    <div class="container">
+      <h2>Download a PWA from an URL or a file-system</h2>
+      <div>
+        <label>URL : </label>
+        <input id="fetchUrl" placeholder="https://mydomain.com" />
+      </div>
+      <div>
+        <label>File : </label>
+        <input id="fetchLocalFile" type="file" placeholder="drag and drop zip file" />
+      </div>
+
+      <div id="fetcherRes"></div>
+    </div>
+
+    <script>
+      // const ipcRenderer = window.require('electron').ipcRenderer;
+      const { ipcRenderer } = require('electron');
+
+      const fetcherRes = document.getElementById('fetcherRes');
+
+      document.getElementById('fetchUrl').addEventListener('change', evt => {
+        fetcherRes.innerText = '...';
+        // window.location.href = evt.target.value;
+        let res = ipcRenderer.sendSync('fetchUrl', evt.target.value);
+        fetcherRes.innerText = res;
+        // fetch(evt.target.value)
+        //   .then(res => res.body)
+        //   .then(res => {
+        //     console.log(res);
+        //     fetcherRes.innerText = 'PWA downloaded';
+        //     document.open();
+        //     document.write(res);
+        //     document.close();
+        //   })
+        //   .catch(err => {
+        //     fetcherRes.innerText = err;
+        //   });
+      });
+
+      var fetchLocalFile = document.getElementById('fetchLocalFile');
+      fetchLocalFile.addEventListener('change', function(e) {
+        // e.preventDefault();
+        // var length = e.dataTransfer.items.length;
+        // for (var i = 0; i < length; i++) {
+        //   var entry = e.dataTransfer.items[i].webkitGetAsEntry();
+        //   var file = e.dataTransfer.files[i];
+        //   var zip = file.name.match(/\.zip/);
+        //   if (entry.isFile) {
+        //     if (zip) {
+        console.log('sldkfldfkslk');
+        let res = ipcRenderer.sendSync('fetchLocalFile', fetchLocalFile.files[0].path);
+
+        fetcherRes.innerText = res;
+
+        //     } else {
+        //     }
+        //   }
+        // }
+      });
+
+      // document.getElementById('fetcherFF').addEventListener('change', evt => {
+      //   fetcherRes.innerText = '...';
+      //   // file:\\
+      //   // C:\Users\LUNDI8\Documents\Nodejs\Oslo\mockup-pwa_v2_bis\public\index.html
+      //   let newFile = ipcRenderer.sendSync('fetcherFF', evt.target.value);
+      //   console.log(newFile);
+      //   document.open();
+      //   document.write(newFile);
+      //   document.close();
+      //   // window.location.href = newFile;
+
+      //   // ipcRenderer.on('fetcherFF', res => {});
+      // });
+    </script>
+  </body>
+</html>
