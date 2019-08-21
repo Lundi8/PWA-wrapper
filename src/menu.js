@@ -2,17 +2,17 @@ const urlHandler = require('./url.handler');
 
 const template = [
   {
-    label: 'pwa',
+    label: 'Pwa',
     submenu: [
       {
-        label: 'Load a PWA',
+        label: 'Load a PWA via the terminal',
         click(item, focusedWindow) {
           let urls = urlHandler.entries();
           focusedWindow.loadURL(urls.root);
         },
       },
       {
-        label: 'Reboot current',
+        label: 'Reboot last view',
         click(item, focusedWindow) {
           let urls = urlHandler.entries();
           urls = urls.fetch || urls.default;

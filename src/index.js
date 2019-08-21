@@ -9,7 +9,7 @@ const template = require('./menu');
 const urlHandler = require('./url.handler');
 urlHandler.init();
 urlHandler.store({ root: path.join('file://', __dirname, 'index.html') });
-urlHandler.store({ root: process.env.WRAPPER_DEFAULT_URL || 'https://google.com' });
+urlHandler.store({ default: process.env.WRAPPER_DEFAULT_URL || 'https://google.com' });
 
 const zipPath = path.join(__dirname, 'store', 'pwa.zip');
 const storePath = path.join(__dirname, 'store');
@@ -81,6 +81,11 @@ app.on('activate', () => {
  * ipcMain
  **********
  */
+
+ipcMain.on('wrapperLocalFile', (event, arg) => {
+  event.returnValue =  process.env.WRAPPER_LOCAL_FILE === 'false' ? false : true;
+});
+
 
 ipcMain.on('fetchUrl', (event, pathTo) => {
   urlHandler.store({ fetch: pathTo });
