@@ -26,7 +26,8 @@
         {
           "name": "@electron-forge/maker-zip",
           "platforms": [
-            "darwin", "linux"
+            "darwin",
+            "linux"
           ]
         },
         {
@@ -42,6 +43,7 @@
   },
   "dependencies": {
     "adm-zip": "^0.4.13",
+    "dotenv": "^8.1.0",
     "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {

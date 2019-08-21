@@ -1,16 +1,19 @@
+require('dotenv').config();
 const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
 var AdmZip = require('adm-zip');
 const template = require('./menu');
-const urlHandler = require('./url.handler');
 
+// SET GLOBAL VARIABLES
+const urlHandler = require('./url.handler');
 urlHandler.init();
-urlHandler.store({ default: path.join('file://', __dirname, 'index.html') });
+urlHandler.store({ root: path.join('file://', __dirname, 'index.html') });
+urlHandler.store({ root: process.env.WRAPPER_DEFAULT_URL || 'https://google.com' });
 
 const zipPath = path.join(__dirname, 'store', 'pwa.zip');
 const storePath = path.join(__dirname, 'store');
-const tDebug = txt => `[Temrinal] -> ${txt}`;
+const tDebug = txt => `[Terminal] -> ${txt}`;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) app.quit();
@@ -35,15 +38,16 @@ const createWindow = () => {
     closable: true,
     autoHideMenuBar: true,
     webPreferences: {
-      nodeIntegration: true,
-    },
+      nodeIntegration: true
+    }
   });
   mainWindow.setFullScreen(true);
 
   // load url
   let urls = urlHandler.entries();
   if (urls.fetch) mainWindow.loadURL(urls.fetch);
-  else mainWindow.loadURL(urls.default);
+  else if (urls.default) mainWindow.loadURL(urls.default);
+  else mainWindow.loadURL(urls.root);
 
   // extra
   mainWindow.webContents.openDevTools();

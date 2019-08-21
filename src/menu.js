@@ -2,17 +2,17 @@ const urlHandler = require('./url.handler');
 
 const template = [
   {
-    label: 'PWA Options',
+    label: 'pwa',
     submenu: [
       {
         label: 'Load a PWA',
         click(item, focusedWindow) {
           let urls = urlHandler.entries();
-          focusedWindow.loadURL(urls.default);
+          focusedWindow.loadURL(urls.root);
         },
       },
       {
-        label: 'Reload current PWA',
+        label: 'Reboot current',
         click(item, focusedWindow) {
           let urls = urlHandler.entries();
           urls = urls.fetch || urls.default;
@@ -39,15 +39,15 @@ const template = [
     role: 'window',
     submenu: [
       {
-        label: 'Switcher le mode plein écran',
+        label: 'Toggle fullscreen',
         role: 'togglefullscreen',
       },
       {
-        label: 'Minimiser la fenêtre',
+        label: 'Minimize window',
         role: 'minimize',
       },
       {
-        label: "Fermer l'application",
+        label: "Close PWA-wrapper",
         role: 'close',
       },
     ],

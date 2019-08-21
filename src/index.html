@@ -34,17 +34,16 @@
       height: 30px;
       padding: 5px;
     }
-
   </style>
   <body>
     <h1>Terminal</h1>
     <div class="container">
-      <h2>Download a PWA from an URL or a file-system</h2>
+      <h2><span>Download a PWA from an URL</span><span class="displayLocalFile"> or a file-system</span></h2>
       <div>
         <label>URL : </label>
         <input id="fetchUrl" placeholder="https://mydomain.com" />
       </div>
-      <div>
+      <div class="displayLocalFile">
         <label>File : </label>
         <input id="fetchLocalFile" type="file" />
       </div>
@@ -56,6 +55,15 @@
       const fetchError = document.getElementById('fetchError');
       const fetchUrl = document.getElementById('fetchUrl');
       const fetchLocalFile = document.getElementById('fetchLocalFile');
+
+      // if (process.env.WRAPPER_FILE_UPLOAD) {
+      //   document.getElementsByClassName('displayFILE').forEach(el => {
+      //     el.style.display = 'none';
+      //   });
+      // }
+      document.getElementsByClassName('displayFILE').forEach(el => {
+        el.style.display = 'none';
+      });
 
       // handle url https://
       fetchUrl.addEventListener('change', evt => {

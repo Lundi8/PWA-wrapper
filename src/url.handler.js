@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const _filePath = path.join(__dirname, 'url.store.json');
-const model = { fetch: '', default: '' };
+const model = { fetch: '', default: '', root: '' };
 
 const getData = () => {
   try {
