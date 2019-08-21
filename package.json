@@ -1,7 +1,7 @@
 {
   "name": "pwa-wrapper",
-  "productName": "PWA wrapper",
-  "version": "1.0.0",
+  "productName": "pwa-wrapper",
+  "version": "1.1.0",
   "description": "Add some features that PWA can't handle for desktop environnement",
   "main": "src/index.js",
   "scripts": {
@@ -15,12 +15,13 @@
   "license": "MIT",
   "config": {
     "forge": {
+      "executableName": "pwa-wrapper",
       "packagerConfig": {},
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "PWA.wrapper"
+            "name": "pwa-wrapper"
           }
         },
         {
@@ -31,8 +32,7 @@
           ]
         },
         {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
+          "name": "@electron-forge/maker-deb"
         },
         {
           "name": "@electron-forge/maker-rpm",
