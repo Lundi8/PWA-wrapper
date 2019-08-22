@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Terminal</title>
+    <title>PWA Wrapper</title>
   </head>
   <style>
     body {
@@ -57,16 +57,17 @@
     <h1>PWA Wrapper - Terminal</h1>
     <div class="container">
       <h2>
-        <span>Download a PWA from an URL</span><span class="displayLocalFile"> or a file-system</span>
+        <span>Download a PWA from an URL</span>
+        <!-- <span> or a file-system</span> -->
       </h2>
       <div class="flex">
         <label>URL </label>
         <input id="fetchUrl" placeholder="https://mydomain.com" />
       </div>
-      <div class="flex displayLocalFile">
+      <!-- <div class="flex">
         <label>FILE </label>
         <input id="fetchLocalFile" type="file" />
-      </div>
+      </div> -->
       <div id="fetchError"></div>
     </div>
 
@@ -76,12 +77,6 @@
       const fetchUrl = document.getElementById('fetchUrl');
       const fetchLocalFile = document.getElementById('fetchLocalFile');
 
-      if (!ipcRenderer.sendSync('wrapperLocalFile')) {
-        Array.from(document.getElementsByClassName('displayLocalFile')).forEach(el => {
-          el.style.display = 'none';
-        });
-      }
-
       // handle url https://
       fetchUrl.addEventListener('change', evt => {
         fetchError.innerText = '...';
@@ -89,8 +84,9 @@
         fetchError.innerText = res;
       });
 
-      // handle local file path
-      fetchLocalFile.addEventListener('change', function(e) {
+      // handle local file system
+      // Uncomment html tag to make it work
+      fetchLocalFile.addEventListener('change', evt => {
         fetchError.innerText = '...';
         let res = ipcRenderer.sendSync('fetchLocalFile', fetchLocalFile.files[0].path);
         fetchError.innerText = res;

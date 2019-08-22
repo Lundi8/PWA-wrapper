@@ -1,4 +1,3 @@
-require('dotenv').config();
 const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
@@ -9,7 +8,7 @@ const template = require('./menu');
 const urlHandler = require('./url.handler');
 urlHandler.init();
 urlHandler.store({ root: path.join('file://', __dirname, 'index.html') });
-urlHandler.store({ default: process.env.WRAPPER_DEFAULT_URL || 'https://google.com' });
+urlHandler.store({ default: '' });
 
 const zipPath = path.join(__dirname, 'store', 'pwa.zip');
 const storePath = path.join(__dirname, 'store');
@@ -37,9 +36,10 @@ const createWindow = () => {
     minimizable: true,
     closable: true,
     autoHideMenuBar: true,
+    icon: path.join(__dirname, 'src', 'icon.ico'),
     webPreferences: {
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+    },
   });
   mainWindow.setFullScreen(true);
 
@@ -49,8 +49,7 @@ const createWindow = () => {
   else if (urls.default) mainWindow.loadURL(urls.default);
   else mainWindow.loadURL(urls.root);
 
-  // extra
-  mainWindow.webContents.openDevTools();
+  console.log('urls stored ->', urls);
 
   // garbage
   mainWindow.on('closed', () => {
@@ -81,11 +80,6 @@ app.on('activate', () => {
  * ipcMain
  **********
  */
-
-ipcMain.on('wrapperLocalFile', (event, arg) => {
-  event.returnValue =  process.env.WRAPPER_LOCAL_FILE === 'false' ? false : true;
-});
-
 
 ipcMain.on('fetchUrl', (event, pathTo) => {
   urlHandler.store({ fetch: pathTo });

@@ -14,32 +14,7 @@
   "author": "LUNDI8",
   "license": "MIT",
   "config": {
-    "forge": {
-      "executableName": "pwa-wrapper",
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "pwa-wrapper"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin",
-            "linux"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb"
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
+    "forge": "./config.forge.js"
   },
   "dependencies": {
     "adm-zip": "^0.4.13",
